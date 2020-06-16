@@ -2,6 +2,7 @@
 
 namespace Sitebill\CRUD;
 
+use Sitebill\CRUD\app\Library\CrudPanel\CrudPanel;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,6 +14,11 @@ class SitebillServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Bind the CrudPanel object to Laravel's service container
+        $this->app->singleton('crud', function ($app) {
+            return new CrudPanel($app);
+        });
+
         //$this->app->make('Sitebill\Sitebill');
         //$this->app->register('Sitebill\CRUD');
 
