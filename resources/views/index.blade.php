@@ -1,1 +1,0 @@
-Sitebill Core index template
