@@ -203,9 +203,13 @@ trait Read
     {
         // If the default Page Length isn't in the menu's values, Add it the beginnin and resort all to show a croissant list.
         // assume both arrays are the same length.
-        if (! in_array($this->getDefaultPageLength(), $this->getOperationSetting('pageLengthMenu')[0])) {
+        $pageLengthMenu = $this->getOperationSetting('pageLengthMenu');
+        if ( empty($pageLengthMenu) ) {
+            $pageLengthMenu = [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']];
+        }
+        if (! in_array($this->getDefaultPageLength(), $pageLengthMenu[0])) {
             // Loop through 2 arrays of prop. pageLengthMenu
-            foreach ($this->getOperationSetting('pageLengthMenu') as $key => &$page_length_choices) {
+            foreach ($pageLengthMenu as $key => &$page_length_choices) {
                 // This is a condition that should be always true.
                 if (is_array($page_length_choices)) {
                     array_unshift($page_length_choices, $this->getDefaultPageLength());
